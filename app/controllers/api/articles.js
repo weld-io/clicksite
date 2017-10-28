@@ -29,7 +29,43 @@ const parseHtml = function (htmlString) {
 		imageUrl: imageUrl,
 		siteName: siteName,
 	};
-}
+};
+
+const keywordsFromText = function ({title, description}) {
+	const titleFix = (title || '').toLowerCase();
+	const descriptionFix = (description || '').toLowerCase();
+	const allText = `${titleFix} ${descriptionFix}`;
+	const allTheseKeywords = _.includesSome.bind(this, allText);
+	const oneKeywordIfWordsMatch = (keyword, wordArray) => !_.isEmpty(_.includesSome(allText, wordArray)) ? keyword : undefined;
+	const includeIfNotEmpty = (keyword, array) => !_.isEmpty(array) ? keyword : undefined;
+	// Per category
+	const keywordsMarketing = _([
+		oneKeywordIfWordsMatch('marketing', ['market', 'campaign']),
+		oneKeywordIfWordsMatch('ecommerce', ['e-commerce', 'ecommerce', 'commerce', 'retail', 'shop', 'purchas', 'payment']),
+		oneKeywordIfWordsMatch('contentmarketing', ['content', 'copywrit', 'viral']),
+		oneKeywordIfWordsMatch('subscriptions', ['subscription']),
+		oneKeywordIfWordsMatch('growthhacking', ['growthhack', 'growth hack']),
+		oneKeywordIfWordsMatch('seo', ['seo', 'keyword', 'search']),
+		oneKeywordIfWordsMatch('copywriting', ['copywrit']),
+		oneKeywordIfWordsMatch('acquisition', ['acquisition', 'traffic']),
+		oneKeywordIfWordsMatch('sales', ['sales', 'outbound']),
+		oneKeywordIfWordsMatch('analytics', ['analytic', 'metric']),
+		oneKeywordIfWordsMatch('branding', ['brand']),
+		oneKeywordIfWordsMatch('adtech', ['adtech', 'dsp', 'ssp']),
+		oneKeywordIfWordsMatch('socialmedia', ['social media', 'facebook', 'twitter', 'youtube', 'instagram', 'snapchat']),
+		oneKeywordIfWordsMatch('webdesign', ['web design']),
+
+		allTheseKeywords(['google', 'facebook', 'twitter', 'youtube', 'instagram']),
+		allTheseKeywords(['growth', 'saas', 'ranking', 'viral', 'email', 'metrics', 'engagement', 'retention']),
+	]).flatten().compact().value();
+	// Meta keywords
+	const metaKeywords = [
+		includeIfNotEmpty('marketing', keywordsMarketing),
+	];
+	// Combine all
+	const allKeywords = _([metaKeywords, keywordsMarketing]).flatten().uniq().compact().value();
+	return allKeywords;
+};
 
 const prepareArticle = function (req, res, next) {
 	request(req.body.url, function (error, response, body) {
@@ -47,13 +83,17 @@ const prepareArticle = function (req, res, next) {
 			if (typeof(postedProps.keywords) === 'string') {
 				postedProps.keywords = postedProps.keywords.toLowerCase().split(',');
 			}
+			// Extra keywords from text
+			postedProps.keywords = _.compact(_.concat(postedProps.keywords, keywordsFromText(htmlProps)));
+			// Merge all props
 			_.merge(req.body, htmlProps, postedProps);
 			next();
 		}
 	});
 };
 
-const addHashtags = function (req, res, next) {
+const formatArticleJson = function (req, res, next) {
+	// Hashtags
 	const hashtags = _(req.crudify.result.keywords).slice(0, 3).value();
 	const hashtagsString = hashtags.length > 0 ? '#' + hashtags.join(' #') : '';
 	req.crudify.result = req.crudify.result.toJSON();
@@ -76,7 +116,7 @@ module.exports = function (app, config) {
 			],
 			endResponseInAction: false,
 			afterActions: [
-				{ middlewares: [addHashtags], only: ['read', 'create', 'update'] },
+				{ middlewares: [formatArticleJson], only: ['read', 'create', 'update'] },
 				{ middlewares: [helpers.sendRequestResponse] },
 			],
 		})

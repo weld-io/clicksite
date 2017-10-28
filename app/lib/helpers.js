@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const moment = require('moment');
+const truncate = require('truncate');
 
 module.exports = function (app, config) {
 
@@ -9,6 +10,9 @@ module.exports = function (app, config) {
 	app.locals.formatDate = function (dateObj) {
 		return moment(dateObj).format("YYYY-MM-DD HH:mm");
 	};
+
+	// Shorten text
+	app.locals.truncate = truncate;
 
 };
 
@@ -56,6 +60,12 @@ _.mixin({ 'arrayToCollection': module.exports.arrayToCollection });
 // applyToAll(func, obj1) or applyToAll(func, [obj1, obj2, ...])
 module.exports.applyToAll = (func, objectOrArray) => Array.isArray(objectOrArray) ? _.map(objectOrArray, func) : func(objectOrArray);
 _.mixin({ 'applyToAll': module.exports.applyToAll });
+
+// includesSome(url, ['localhost', 'staging'])
+module.exports.includesSome = function (parentObj, childObjects) {
+	return _.filter(childObjects, childObj => _.includes(parentObj, childObj));
+};
+_.mixin({ 'includesSome': module.exports.includesSome });
 
 // Simple JSON response, usage e.g.
 // 1. helpers.sendResponse.bind(res) - err, results will be appended to end

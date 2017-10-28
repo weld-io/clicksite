@@ -25,7 +25,8 @@
 		"mongoose-crudify": "^0.2.0",
 		"mongoose-findorcreate": "^1.0.1",
 		"morgan": "^1.8.1",
-		"request": "^2.83.0"
+		"request": "^2.83.0",
+		"truncate": "^2.0.0"
 	},
 	"devDependencies": {
 		"nodemon": "^1.11.0",
