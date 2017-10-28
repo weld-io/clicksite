@@ -16,8 +16,6 @@ const Article = require('mongoose').model('Article');
 
 // Private functions
 
-const identifyingKey = 'reference';
-
 const parseHtml = function (htmlString) {
 	const $ = cheerio.load(htmlString);
 	const title = $('head meta[property="og:title"]').attr('content') || $('head title').text();
@@ -53,6 +51,16 @@ const prepareArticle = function (req, res, next) {
 	});
 };
 
+const addHashtags = function (req, res, next) {
+	const hashtags = _(req.crudify.result.keywords).slice(0, 3).value();
+	const hashtagsString = hashtags.length > 0 ? '#' + hashtags.join(' #') : '';
+	req.crudify.result = req.crudify.result.toJSON();
+	if (hashtags.length > 0) {
+		req.crudify.result.hashtags = hashtagsString;
+	}
+	next();
+};
+
 // Public API
 
 module.exports = function (app, config) {
@@ -61,14 +69,14 @@ module.exports = function (app, config) {
 		'/api/articles',
 		mongooseCrudify({
 			Model: Article,
-			//identifyingKey: identifyingKey,
 			beforeActions: [
 				{ middlewares: [prepareArticle], only: ['create'] },
 			],
-			// endResponseInAction: false,
-			// afterActions: [
-			// 	{ middlewares: [helpers.sendRequestResponse] },
-			// ],
+			endResponseInAction: false,
+			afterActions: [
+				{ middlewares: [addHashtags], only: ['read', 'create', 'update'] },
+				{ middlewares: [helpers.sendRequestResponse] },
+			],
 		})
 	);
 
