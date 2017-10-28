@@ -1,4 +1,30 @@
-<% include ../shared/header %>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title><%- article.title %></title>
+<meta property="og:site_name" content="<%= article.title %>">
+<meta property="og:title" content="<%= article.title %>">
+<meta name="twitter:title" content="<%= article.title %>">
+<meta name="description" content="<%= article.description %>">
+<meta property="og:description" content="<%= article.description %>">
+<meta name="twitter:description" content="<%= article.description %>">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Weld_io">
+<meta name="twitter:creator" content="@Weld_io">
+<meta property="og:image" content="<%- article.imageUrl %>">
+<meta name="twitter:image" content="<%- article.imageUrl %>">
+<link rel="shortcut icon" href="/img/icon_head.png" sizes="512x512" type="image/png"/>
+<script type="text/javascript" src="/js/app.js" async></script>
+<link rel="stylesheet" href="/weld-static-assets/css/weld-fonts.css">
+<link rel="stylesheet" href="/weld-static-assets/css/weld-colors.css">
+<link rel="stylesheet" href="/css/style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+</head>
+
+<body>
+<main>
 
 <section class="ad-frame">
 	<h2>Be creative without code</h2>
