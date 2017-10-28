@@ -41,7 +41,10 @@ const prepareArticle = function (req, res, next) {
 		}
 		else {
 			// Merge req.body last = e.g. user-provided 'title' has priority
-			const oldProps = _.clone(req.body);
+			let oldProps = _.clone(req.body);
+			if (typeof(oldProps.keywords) === 'string') {
+				oldProps.keywords = oldProps.keywords.split(',');
+			}
 			_.merge(req.body, parseHtml(body), oldProps);
 			next();
 		}
