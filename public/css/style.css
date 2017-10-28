@@ -6,11 +6,12 @@
 
 body {
 	font-family: 'weld-light', sans-serif;
-	font-size: 16px;
+	font-size: 3vh;
 }
 
 h2 {
-	font-size: 1.1em;
+	font-size: 1.5em;
+	text-align: center;
 }
 
 main {
@@ -20,22 +21,53 @@ main {
 	overflow: hidden;
 }
 
-.ad-frame {
+.ad-frame,
+.article-frame {
+	position: absolute;
 	width: 100%;
-	height: 60px;
-	border-bottom: 1px solid #AAA;
-	background-color: #6ec8dc;
-	color: white;
-	padding: 0 0.5em;
+	height: 50%;
 
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
+	padding: 0 0.5em;
 }
 
-.ad-frame > a {
-	flex-grow: 0.3;
+.ad-frame > a,
+.article-frame > a {
+	width: 100%;
+	text-align: center;
+}
+
+.ad-frame {
+	color: white;
+	background-color: rgba(0,0,0, 0.4);
+}
+.ad-frame.background {
+	background-color: #6ec8dc;
+	z-index: -1;
+	padding: 0;
+}
+
+.ad-frame button {
+	background-color: #6ec8dc;
+	color: white;
+}
+.ad-frame button:hover {
+	color: #6ec8dc;
+	background-color: white;
+}
+
+video {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.article-frame {
+	top: 50%;
+	background-color: #EEE;
 }
 
 /* Nice & simple: Button - http://codepen.io/tomsoderlund/pen/qqyzqp */
@@ -51,15 +83,16 @@ button {
 	font-size: inherit;
 	font-weight: bold;
 	outline: none;
-	padding: 0.6em;
-	margin: 0.2em;
+	padding: 0.9em 0.6em;
+	margin: 0.2em 0;
 	transition: all 0.2s;
 	width: 100%;
 	min-width: 7em;
+	max-width: 20em;
 }
 button:hover {
-	opacity: 0.8;
-	transition: box-shadow 0s;
+	color: white;
+	background-color: black;
 }
 button:active {
 	margin-top: 0.3em;
@@ -68,8 +101,4 @@ button:active {
 }
 button:disabled {
 	background-color: silver;
-}
-
-iframe {
-	height: calc(100% - 60px);
 }
