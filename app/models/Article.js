@@ -9,6 +9,7 @@ const Article = new Schema({
 	url: { type: String, required: true, unique: true },
 	title: { type: String, required: true },
 	description: { type: String },
+	imageUrl: { type: String },
 	dateCreated: { type: Date, default: Date.now },
 	keywords: [String],
 });
