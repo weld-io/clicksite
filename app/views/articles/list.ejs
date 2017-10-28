@@ -20,6 +20,7 @@
 	<thead>
 		<tr>
 			<th>Date</th>
+			<th>Site</th>
 			<th>Image</th>
 			<th>Title</th>
 			<th>Description</th>
@@ -30,6 +31,7 @@
 <% for(var i=0; i < articles.length; i++) { %>
 		<tr>
 			<td><%= formatDate(articles[i].dateCreated) %></td>
+			<td><%= articles[i].siteName %></td>
 			<td><img class="thumbnail" src="<%= articles[i].imageUrl %>"></td>
 			<td><a href="/<%= articles[i].slug %>"><%= articles[i].title %></a></td>
 			<td><%= articles[i].description %></td>
