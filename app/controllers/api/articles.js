@@ -40,12 +40,14 @@ const prepareArticle = function (req, res, next) {
 			res.status(500).send(error);
 		}
 		else {
+			// Parse HTML
+			const htmlProps = parseHtml(body);
 			// Merge req.body last = e.g. user-provided 'title' has priority
-			let oldProps = _.clone(req.body);
-			if (typeof(oldProps.keywords) === 'string') {
-				oldProps.keywords = oldProps.keywords.split(',');
+			let postedProps = _.clone(req.body);
+			if (typeof(postedProps.keywords) === 'string') {
+				postedProps.keywords = postedProps.keywords.toLowerCase().split(',');
 			}
-			_.merge(req.body, parseHtml(body), oldProps);
+			_.merge(req.body, htmlProps, postedProps);
 			next();
 		}
 	});
