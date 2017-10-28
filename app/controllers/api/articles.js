@@ -83,7 +83,11 @@ const prepareArticle = function (req, res, next) {
 			if (typeof(postedProps.keywords) === 'string') {
 				postedProps.keywords = postedProps.keywords.toLowerCase().split(',');
 			}
-			// Extra keywords from text
+			// Clean up keywords
+			if (postedProps.keywords) {
+				postedProps.keywords = _.map(postedProps.keywords, keyword => keyword.replace(/[^\w-]+/g,''));
+			}
+			// Extra keywords from title/description
 			postedProps.keywords = _.compact(_.concat(postedProps.keywords, keywordsFromText(htmlProps)));
 			// Merge all props
 			_.merge(req.body, htmlProps, postedProps);
