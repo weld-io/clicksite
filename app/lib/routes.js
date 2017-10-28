@@ -15,5 +15,6 @@ module.exports = function (app, config) {
 	var webArticlesController = require(config.root + '/app/controllers/web/articles');
 
 	router.get('/:slug', webArticlesController.show);
+	router.get('/', webArticlesController.list);
 
 };

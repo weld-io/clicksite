@@ -7,8 +7,7 @@ module.exports = function (app, config) {
 
 	// To string. Months are zero-based
 	app.locals.formatDate = function (dateObj) {
-		//return moment(dateObj).format("YYYY-MM-DD HH:mm");
-		return moment(dateObj).format("YYYY-MM-DD");
+		return moment(dateObj).format("YYYY-MM-DD HH:mm");
 	};
 
 };
@@ -31,21 +30,23 @@ module.exports.toSlug = function (str, removeInternationalChars) {
 	// Abort if not a proper string value
 	if (!str || typeof(str) !== 'string')
 		return str;
+	// For both
+	var newStr = str.trim()
+		.toLowerCase()
+		.replace(/ /g, '-') // space to dash
+		.replace(/_/g, '-') // underscore to dash
+	// Remove ÅÄÖ etc?
 	if (removeInternationalChars) {
-		return str
-			.trim()
-			.replace(/ /g,'-') // space to dash
-			.replace(/[^\w-]+/g,'') // remove all other characters incl. ÅÄÖ
-			.toLowerCase();
+		newStr = newStr.replace(/[^\w-]+/g,''); // remove all other characters incl. ÅÄÖ
 	}
 	else {
-		return str
-			.trim()
-			.replace(/ /g,'-') // space to dash
-			.replace(/[\t.,?;:‘’“”"'`!@#$€%^&§°*<>()\[\]\{\}_\+=\/\|\\]/g,'') // remove invalid characters
-			.replace(/---/g,'-') // fix for the ' - ' case
-			.toLowerCase();
+		newStr = newStr.replace(/[\t.,?;:‘’“”"'`!@#$€%^&§°*<>()\[\]{}_\+=\/\|\\]/g,''); // remove invalid characters but keep ÅÄÖ etc
 	}
+	// For both
+	newStr = newStr.replace(/---/g,'-') // fix for the ' - ' case
+		.replace(/--/g,'-') // fix for the '- ' case
+		.replace(/--/g,'-'); // fix for the '- ' case
+	return newStr;
 };
 
 // [{ reference: foo, ... }, { reference: bar, ... }] -> { foo: ..., bar: ... }

@@ -102,3 +102,27 @@ button:active {
 button:disabled {
 	background-color: silver;
 }
+
+/* Nice & simple: Table - https://codepen.io/tomsoderlund/pen/mmZrRR */
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+	padding: 0.5em;
+}
+
+thead tr {
+	background-color: #708090;
+	color: white;
+}
+
+tr:nth-child(2n+0) {
+	background-color: #cfd5da;
+}
+
+
+img.thumbnail {
+	height: 2em;
+	width: auto;
+}

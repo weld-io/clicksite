@@ -8,20 +8,31 @@ const Article = mongoose.model('Article');
 
 module.exports = {
 
+	list: function (req, res, next) {
+		var searchQuery = {};
+		if (req.params.after) {
+			searchQuery['dateCreated'] = searchQuery['dateCreated'] || {};
+			searchQuery['dateCreated']['$gte'] = new Date(req.params.after);
+		}
+		if (req.params.before) {
+			searchQuery['dateCreated'] = searchQuery['dateCreated'] || {};
+			searchQuery['dateCreated']['$lt'] = new Date(req.params.before);
+		}
+
+		const sorting = { 'dateCreated': -1 };
+		// Execute query
+		Article.find(searchQuery).limit(50).sort(sorting).exec(function (err, articles) {
+			if (err)
+				return next(err);
+			res.render('articles/list', {
+				title: 'Articles',
+				articles: articles
+			});
+		});
+	},
+
 	show: function (req, res, next) {
 		var searchQuery = {};
-		if (req.params.username) {
-			searchQuery.username = req.params.username;
-		}
-		if (req.params.startDate) {
-			searchQuery['created_at'] = searchQuery['created_at'] || {};
-			searchQuery['created_at']['$gte'] = new Date(req.params.startDate);
-		}
-		if (req.params.endDate) {
-			searchQuery['created_at'] = searchQuery['created_at'] || {};
-			searchQuery['created_at']['$lt'] = new Date(req.params.endDate);
-		}
-		const sorting = { 'created_at': -1 };
 		// Execute query
 		Article.find(searchQuery).exec(function (err, article) {
 			if (err)
@@ -31,6 +42,6 @@ module.exports = {
 				article: article
 			});
 		});
-	}
+	},
 
 }

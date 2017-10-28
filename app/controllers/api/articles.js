@@ -25,6 +25,7 @@ const parseHtml = function (htmlString) {
 	const imageUrl = $('head meta[property="og:image"]').attr('content') || $('head meta[property="twitter:image"]').attr('content');
 	return {
 		title: title,
+		slug: helpers.toSlug(title),
 		description: description,
 		imageUrl: imageUrl,
 	};
