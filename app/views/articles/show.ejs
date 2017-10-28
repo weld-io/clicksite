@@ -1,8 +1,9 @@
 <% include ../shared/header %>
 
 <section class="ad-frame">
-	<h2>Do it in Weld Do it in Weld Do it in Weld</h2>
-	<a href="https://www.weld.io?"><button>Try Weld now</button></a>
+	<h2>Be creative without code</h2>
+	<p>Create visual, animated, interactive content on your existing web/e-commerce platform</p>
+	<a href="https://www.weld.io?utm_source=articles.weld.io&utm_content=<%= article.slug %>"><button>Try Weld now</button></a>
 </section>
 
 <section class="ad-frame background">
@@ -13,9 +14,9 @@
 </section>
 
 <section class="article-frame">
-	<h2>6 Tips for SEO and Marketing in 2016</h2>
-	<p>SEO and marketing has changed in 2016. They are more closely interlinked than ever before.</p>
-	<a href="https://www.inc.com/aj-agrawal/6-tips-for-seo-and-marketing-in-2016.html" target="_blank"><button>Continue to article</button></a>
+	<h2><%= article.title %></h2>
+	<p><%= article.description %></p>
+	<a href="<%= article.url %>" target="_blank"><button>Continue to article</button></a>
 </section>
 
 <% include ../shared/footer %>

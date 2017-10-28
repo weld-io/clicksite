@@ -32,9 +32,9 @@ module.exports = {
 	},
 
 	show: function (req, res, next) {
-		var searchQuery = {};
+		var searchQuery = { slug: req.params.slug };
 		// Execute query
-		Article.find(searchQuery).exec(function (err, article) {
+		Article.findOne(searchQuery).exec(function (err, article) {
 			if (err)
 				return next(err);
 			res.render('articles/show', {

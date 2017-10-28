@@ -31,13 +31,18 @@ main {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	padding: 0 0.5em;
+	padding: 1em;
 }
 
 .ad-frame > a,
 .article-frame > a {
 	width: 100%;
 	text-align: center;
+}
+
+.ad-frame > p,
+.article-frame > p {
+	font-size: 0.9em;
 }
 
 .ad-frame {
