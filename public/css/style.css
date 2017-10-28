@@ -20,7 +20,7 @@ main {
 	overflow: hidden;
 }
 
-.ad-banner {
+.ad-frame {
 	width: 100%;
 	height: 60px;
 	border-bottom: 1px solid #AAA;
@@ -34,7 +34,7 @@ main {
 	align-items: center;
 }
 
-.ad-banner > a {
+.ad-frame > a {
 	flex-grow: 0.3;
 }
 
