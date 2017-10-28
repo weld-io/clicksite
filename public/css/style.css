@@ -1,6 +1,75 @@
-/* ----- Fonts ----- */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
 
 body {
 	font-family: 'weld-light', sans-serif;
-	font-size: 20px;
+	font-size: 16px;
+}
+
+h2 {
+	font-size: 1.1em;
+}
+
+main {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.ad-banner {
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #AAA;
+	background-color: #6ec8dc;
+	color: white;
+	padding: 0 0.5em;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.ad-banner > a {
+	flex-grow: 0.3;
+}
+
+/* Nice & simple: Button - http://codepen.io/tomsoderlund/pen/qqyzqp */
+button {
+	background-color: white;
+	color: black;
+	border-radius: 0.2em;
+	border: none;
+	box-shadow: 0 0.1em 0.1em rgba(0,0,0, 0.2);
+	box-sizing: border-box;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: bold;
+	outline: none;
+	padding: 0.6em;
+	margin: 0.2em;
+	transition: all 0.2s;
+	width: 100%;
+	min-width: 7em;
+}
+button:hover {
+	opacity: 0.8;
+	transition: box-shadow 0s;
+}
+button:active {
+	margin-top: 0.3em;
+	margin-bottom: 0.1em;
+	box-shadow: 0 0.5px 0.125em rgba(0,0,0, 0.4);
+}
+button:disabled {
+	background-color: silver;
+}
+
+iframe {
+	height: calc(100% - 60px);
 }
