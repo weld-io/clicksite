@@ -19,7 +19,7 @@
 			<td><img class="thumbnail" src="<%= articles[i].imageUrl %>"></td>
 			<td><a href="/<%= articles[i].slug %>"><%= articles[i].title %></a></td>
 			<td><%= articles[i].description %></td>
-			<td><%= articles[i].keywords %></td>
+			<td><%= articles[i].keywords.join(', ') %></td>
 		</tr>
 <% } %>
 	</tbody>
