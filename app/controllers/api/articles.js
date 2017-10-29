@@ -10,6 +10,8 @@ const mongooseCrudify = require('mongoose-crudify');
 const request = require('request');
 const cheerio = require('cheerio');
 const _ = require('lodash');
+const Entities = require('html-entities').XmlEntities;
+const entities = new Entities();
 
 const helpers = require('../../lib/helpers');
 const Article = require('mongoose').model('Article');
@@ -18,8 +20,8 @@ const Article = require('mongoose').model('Article');
 
 const parseHtml = function (htmlString) {
 	const $ = cheerio.load(htmlString);
-	const title = $('head meta[property="og:title"]').attr('content') || $('head title').text();
-	const description = $('head meta[property="og:description"]').attr('content') || $('head meta[property="description"]').attr('content');
+	const title = entities.decode($('head meta[property="og:title"]').attr('content') || $('head title').text());
+	const description = entities.decode($('head meta[property="og:description"]').attr('content') || $('head meta[property="description"]').attr('content'));
 	const imageUrl = $('head meta[property="og:image"]').attr('content') || $('head meta[property="twitter:image"]').attr('content');
 	const siteName = $('head meta[property="og:site_name"]').attr('content') || $('head meta[property="application-name"]').attr('content');
 	return {
