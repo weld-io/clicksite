@@ -12,6 +12,7 @@ const Article = new Schema({
 	description: { type: String },
 	imageUrl: { type: String },
 	siteName: { type: String },
+	comment: { type: String },
 	dateCreated: { type: Date, default: Date.now },
 	keywords: [String],
 });
