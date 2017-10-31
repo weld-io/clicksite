@@ -29,8 +29,8 @@ Server will default to **http://localhost:3033**
 
 ## Entities
 
-* Article: link to external article.
-* Ad: an ad banner to show.
+* **Article**: link to external article.
+* **Ad**: an ad banner to show.
 
 
 ## REST API
@@ -39,27 +39,27 @@ Server will default to **http://localhost:3033**
 
 List articles
 
-	curl http://localhost:3033/api/articles
+	curl http://localhost:3033/api/articles?password=[API_PASSWORD]
 
 Get a specific article
 
-	curl http://localhost:3033/api/articles/[UPDATE_ID]
+	curl http://localhost:3033/api/articles/[UPDATE_ID]?password=[API_PASSWORD]
 
 Create new article:
 
-	curl -X POST -H "Content-Type: application/json" http://localhost:3033/api/articles -d '{ "url": "https://news.com/article-link" }'
+	curl -X POST -H "Content-Type: application/json" http://localhost:3033/api/articles?password=[API_PASSWORD] -d '{ "url": "https://news.com/article-link" }'
 
 Update an article:
 
-	curl -X PUT -H "Content-Type: application/json" http://localhost:3033/api/articles/[UPDATE_ID] -d '{}'
+	curl -X PUT -H "Content-Type: application/json" http://localhost:3033/api/articles/[UPDATE_ID]?password=[API_PASSWORD] -d '{}'
 
 Delete article:
 
-	curl -X DELETE http://localhost:3033/api/articles/[UPDATE_ID]
+	curl -X DELETE http://localhost:3033/api/articles/[UPDATE_ID]?password=[API_PASSWORD]
 
 Delete all articles:
 
-	curl -X DELETE http://localhost:3033/api/articles
+	curl -X DELETE http://localhost:3033/api/articles?password=[API_PASSWORD]
 
 
 ## Deploying on Heroku
@@ -67,4 +67,5 @@ Delete all articles:
 	heroku create MYAPPNAME
 	heroku addons:create mongolab
 	heroku config:set GOOGLE_ANALYTICS_ID=UA-xxxx
+	heroku config:set API_PASSWORD=xxxx
 	git push heroku master

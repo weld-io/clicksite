@@ -14,6 +14,7 @@ const Entities = require('html-entities').XmlEntities;
 const entities = new Entities();
 
 const helpers = require('../../lib/helpers');
+const { authenticateUser } = require('../auth');
 const Article = require('mongoose').model('Article');
 
 // Private functions
@@ -118,6 +119,7 @@ module.exports = function (app, config) {
 		mongooseCrudify({
 			Model: Article,
 			beforeActions: [
+				{ middlewares: [authenticateUser] },
 				{ middlewares: [prepareArticle], only: ['create'] },
 			],
 			endResponseInAction: false,

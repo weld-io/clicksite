@@ -29,10 +29,6 @@ module.exports = function (app, config) {
 
 	// Routing
 
-	// Require in Auth controller
-	const authController = require(config.root + '/app/controllers/auth');
-	authController(app, config);
-
 	// Require in all API controllers
 	glob.sync(config.root + '/app/controllers/api/*.js').forEach(controllerPath => require(controllerPath)(app, config));
 
