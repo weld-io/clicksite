@@ -91,7 +91,7 @@ const prepareArticle = function (req, res, next) {
 				postedProps.keywords = _.map(postedProps.keywords, keyword => keyword.replace(/[^\w-]+/g,''));
 			}
 			// Extra keywords from title/description
-			postedProps.keywords = _.compact(_.concat(postedProps.keywords, keywordsFromText(htmlProps)));
+			postedProps.keywords = _(postedProps.keywords).concat(keywordsFromText(htmlProps)).compact().uniq().value();
 			// Merge all props
 			_.merge(req.body, htmlProps, postedProps);
 			next();
