@@ -18,7 +18,6 @@ main {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
 }
 
 /* Article/Ad frames */
@@ -29,11 +28,13 @@ main {
 	width: 100%;
 	height: 50%;
 
+	padding: 1em;
+	overflow: hidden;
+
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	padding: 1em;
 }
 
 .ad-frame > a,
