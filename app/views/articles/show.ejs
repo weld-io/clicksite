@@ -21,23 +21,22 @@
 <body>
 <main>
 
+<section class="article-frame">
+	<h2><%= article.title %></h2>
+	<p><%= truncate(article.description, 200) %></p>
+	<a href="<%= article.url %>" target="_blank"><button>Continue to article</button></a>
+</section>
+
 <section class="ad-frame">
 	<h2>Weld – the Visual CMS</h2>
 	<p>Create visual, animated, interactive content on your existing web/e-commerce platform</p>
 	<a href="https://www.weld.io?utm_source=articles.weld.io&utm_content=<%= article.slug %>"><button>Learn more</button></a>
 </section>
-
 <section class="ad-frame background">
 	<video autoplay="true" loop="true">
 		<source src="https://s3-eu-west-1.amazonaws.com/weld-app-assets/landing/weld_landingpage_2017_hd.mp4" media="all and (max-width:480px)" type="video/mp4">
 		<source src="https://s3-eu-west-1.amazonaws.com/weld-app-assets/landing/weld_landingpage_2017_hd.mp4" type="video/mp4">
 	</video>
-</section>
-
-<section class="article-frame">
-	<h2><%= article.title %></h2>
-	<p><%= truncate(article.description, 200) %></p>
-	<a href="<%= article.url %>" target="_blank"><button>Continue to article</button></a>
 </section>
 
 <% include ../shared/footer %>
