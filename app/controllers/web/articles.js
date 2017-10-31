@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 const async = require('async');
 
+const auth = require('../auth');
 const Article = mongoose.model('Article');
 
 module.exports = {
@@ -39,7 +40,9 @@ module.exports = {
 				return next(err);
 			res.render('articles/show', {
 				title: 'Articles',
-				article: article
+				article: article,
+				isAuthenticated: auth.isAuthenticated(req),
+				password: auth.getPassword(req),
 			});
 		});
 	},
