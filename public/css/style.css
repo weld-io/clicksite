@@ -21,6 +21,8 @@ main {
 	overflow: hidden;
 }
 
+/* Article/Ad frames */
+
 .ad-frame,
 .article-frame {
 	position: absolute;
@@ -43,6 +45,15 @@ main {
 .ad-frame > p,
 .article-frame > p {
 	font-size: 0.9em;
+}
+
+p.description {
+	color: #666;
+}
+
+p.comment {
+	color: #6ec8dc;
+	font-style: italic;
 }
 
 .ad-frame {
