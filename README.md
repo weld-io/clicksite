@@ -66,4 +66,5 @@ Delete all articles:
 
 	heroku create MYAPPNAME
 	heroku addons:create mongolab
+	heroku config:set GOOGLE_ANALYTICS_ID=UA-xxxx
 	git push heroku master

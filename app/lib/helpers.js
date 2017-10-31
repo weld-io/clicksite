@@ -14,6 +14,9 @@ module.exports = function (app, config) {
 	// Shorten text
 	app.locals.truncate = truncate;
 
+	// Google Analytics
+	app.locals.getGoogleAnalyticsId = () => process.env.GOOGLE_ANALYTICS_ID || 'GOOGLE_ANALYTICS_ID not defined';
+
 };
 
 // Get types for all properties for the arguments object
