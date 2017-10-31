@@ -107,6 +107,7 @@ const formatArticleJson = function (req, res, next) {
 	if (hashtags.length > 0) {
 		req.crudify.result.hashtags = hashtagsString;
 	}
+	req.crudify.result.commentOrTitle = req.crudify.result.comment || req.crudify.result.title;
 	next();
 };
 
