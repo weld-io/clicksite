@@ -27,7 +27,9 @@ module.exports = {
 				return next(err);
 			res.render('articles/list', {
 				title: 'Articles',
-				articles: articles
+				articles: articles,
+				isAuthenticated: auth.isAuthenticated(req),
+				password: auth.getPassword	(req),
 			});
 		});
 	},
@@ -42,7 +44,7 @@ module.exports = {
 				title: 'Articles',
 				article: article,
 				isAuthenticated: auth.isAuthenticated(req),
-				password: auth.getPassword(req),
+				password: auth.getPassword	(req),
 			});
 		});
 	},

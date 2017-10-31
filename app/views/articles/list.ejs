@@ -11,6 +11,10 @@
 
 <h1>Articles</h1>
 
+<% if (isAuthenticated) { %>
+	<div class="actions"><button onclick="ClickSite.addArticle('<%= password %>')">Add article</button></div>
+<% } %>
+
 <table>
 	<thead>
 		<tr>
@@ -27,7 +31,7 @@
 			<td><%= formatDate(articles[i].dateCreated) %></td>
 			<td><%= articles[i].siteName %></td>
 			<td><img class="thumbnail" src="<%= articles[i].imageUrl %>"></td>
-			<td><a href="/<%= articles[i].slug %>" title="/<%= articles[i].description %>"><%= articles[i].title %></a></td>
+			<td><a href="/<%= articles[i].slug + (password ? `?password=${password}` : '') %>" title="<%= articles[i].description %>"><%= articles[i].title %></a></td>
 			<td><%= articles[i].keywords.join(', ') %></td>
 		</tr>
 <% } %>

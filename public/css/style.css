@@ -142,3 +142,13 @@ img.thumbnail {
 	height: 2em;
 	width: auto;
 }
+
+/* Admin actions */
+.actions button {
+	background-color: limegreen;
+	color: white;
+	font-size: 0.8em;
+	padding: 0.5em 1em;
+	min-width: auto;
+	width: auto;
+}
