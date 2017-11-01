@@ -4,10 +4,18 @@ const mongoose = require('mongoose');
 const findOrCreate = require('mongoose-findorcreate');
 const Schema = mongoose.Schema;
 
-// https://developer.github.com/v3/activity/events/types/#issuesevent
+const TranslatedArticle = new Schema({
+	languageCode: { type: String, required: true },
+	slug: { type: String, required: true },
+	title: { type: String, required: true },
+	description: { type: String },
+	comment: { type: String },
+	keywords: [String],
+});
+
 const Article = new Schema({
 	url: { type: String, required: true, unique: true },
-	slug: { type: String, required: true },
+	slug: { type: String, required: true, unique: true },
 	title: { type: String, required: true },
 	description: { type: String },
 	imageUrl: { type: String },
@@ -15,6 +23,7 @@ const Article = new Schema({
 	comment: { type: String },
 	dateCreated: { type: Date, default: Date.now },
 	keywords: [String],
+	translations: [TranslatedArticle],
 });
 
 Article.plugin(findOrCreate);

@@ -17,6 +17,25 @@ module.exports = function (app, config) {
 	// Google Analytics
 	app.locals.getGoogleAnalyticsId = () => process.env.GOOGLE_ANALYTICS_ID || 'GOOGLE_ANALYTICS_ID not defined';
 
+	app.locals.getTranslatedLink = function (article, languageName, languageCode, currentLanguageCode) {
+
+		const makeLink = (link, text, title) => `<a href="${link}">${text}</a>`;
+
+		const existingTranslation = _.find(article.translations, { languageCode: languageCode });
+		if (languageCode === currentLanguageCode) {
+			return languageName;
+		}
+		else if (languageCode === 'en') {
+			return makeLink(`/${article.originalSlug || article.slug}`, languageName);
+		}
+		else if (existingTranslation) {
+			return makeLink(`/${languageCode}/${existingTranslation.slug}`, languageName);
+		}
+		else {
+			return makeLink(`/translate/${languageCode}/${article._id}`, languageName);
+		}
+	};
+
 };
 
 // Get types for all properties for the arguments object
