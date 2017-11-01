@@ -35,14 +35,29 @@ module.exports = {
 	},
 
 	show: function (req, res, next) {
-		var searchQuery = { slug: req.params.slug };
-		// Execute query
-		Article.findOne(searchQuery).exec(function (err, article) {
-			if (err)
+		Article.findOne({ slug: req.params.slug }).exec(function (err, article) {
+			if (err || article === null) {
 				return next(err);
+			}
 			res.render('articles/show', {
 				title: 'Articles',
 				article: article,
+				isAuthenticated: auth.isAuthenticated(req),
+				password: auth.getPassword	(req),
+			});
+		});
+	},
+
+	showTranslated: function (req, res, next) {
+		Article.findOne().elemMatch('translations', { languageCode: req.params.languageCode, slug: req.params.slug }).exec(function (err, article) {
+			if (err || article === null) {
+				return next(err);
+			}
+			const translation = _.find(article.translations, trn => trn.languageCode === req.params.languageCode);
+			const translatedArticle = _.merge({}, article, translation);
+			res.render('articles/show', {
+				title: 'Articles',
+				article: translatedArticle,
 				isAuthenticated: auth.isAuthenticated(req),
 				password: auth.getPassword	(req),
 			});

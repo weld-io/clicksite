@@ -14,6 +14,7 @@ module.exports = function (app, config) {
 	// Web
 	var webArticlesController = require(config.root + '/app/controllers/web/articles');
 
+	router.get('/:languageCode/:slug', webArticlesController.showTranslated);
 	router.get('/:slug', webArticlesController.show);
 	router.get('/', webArticlesController.list);
 
