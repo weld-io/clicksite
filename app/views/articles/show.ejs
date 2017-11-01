@@ -23,18 +23,30 @@
 
 <section class="article-frame">
 	<h2><%= article.title %></h2>
-
 <% if (article.comment) { %>
 	<p class="comment"><%= truncate(article.comment, 200) %></p>
 <% } else { %>
 	<p class="description"><%= truncate(article.description, 200) %></p>
-<% } %>
-
-<% if (isAuthenticated) { %>
+<% } %><% if (isAuthenticated) { %>
 	<div class="actions"><button onclick="ClickSite.addComment('<%= article._id %>', '<%= password %>')">Comment</button></div>
 <% } %>
-
 	<a href="<%= article.url %>" target="_blank"><button>Continue to article</button></a>
+
+	<div class="translations">
+		Read in:
+		<%- getTranslatedLink(article, 'Arabic', 'ar', languageCode) %>
+		<%- getTranslatedLink(article, 'English', 'en', languageCode) %>
+		<%- getTranslatedLink(article, 'French', 'fr', languageCode) %>
+		<%- getTranslatedLink(article, 'German', 'de', languageCode) %>
+		<%- getTranslatedLink(article, 'Hindi', 'hi', languageCode) %>
+		<%- getTranslatedLink(article, 'Italian', 'it', languageCode) %>
+		<%- getTranslatedLink(article, 'Japanese', 'ja', languageCode) %>
+		<%- getTranslatedLink(article, 'Portuguese', 'pt', languageCode) %>
+		<%- getTranslatedLink(article, 'Russian', 'ru', languageCode) %>
+		<%- getTranslatedLink(article, 'Spanish', 'es', languageCode) %>
+		<%- getTranslatedLink(article, 'Swedish', 'sv', languageCode) %>
+	</div>
+
 </section>
 
 <section class="ad-frame">
