@@ -102,7 +102,7 @@ button {
 	outline: none;
 	padding: 0.9em 0.6em;
 	margin: 0.2em 0;
-	transition: all 0.2s;
+	transition: all 0.1s;
 	width: 100%;
 	min-width: 7em;
 	max-width: 20em;
@@ -110,11 +110,14 @@ button {
 button:hover {
 	color: white;
 	background-color: black;
+	margin-top: 0.15em;
+	margin-bottom: 0.25em;
+	box-shadow: 0 0.2em 0.1em rgba(0,0,0, 0.2);
 }
 button:active {
 	margin-top: 0.3em;
 	margin-bottom: 0.1em;
-	box-shadow: 0 0.5px 0.125em rgba(0,0,0, 0.4);
+	box-shadow: 0 0.05em 0.125em rgba(0,0,0, 0.4);
 }
 button:disabled {
 	background-color: silver;
