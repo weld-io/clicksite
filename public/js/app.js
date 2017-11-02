@@ -23,12 +23,12 @@ var ClickSite = ClickSite || {};
 		var url = prompt('Article URL');
 		var jsonObj = { url: url };
 		var keywords = prompt('Keywords (comma-separated, no spaces)');
-		if (keywords) {
-			jsonObj.keywords = keywords;
-		}
+		if (keywords) jsonObj.keywords = keywords;
+		var comment = prompt('Your own comment why this is a good article\n(no period/exclamation point at the end)');
+		if (comment) jsonObj.comment = comment;
 		apiRequest('post', 'articles', undefined, jsonObj, password, function(result) {
-			//location.reload();
-			location.href = '/' + result.slug;
+			location.reload();
+			//location.href = '/' + result.slug;
 		});
 	};
 
