@@ -26,7 +26,7 @@ module.exports = function (app, config) {
 			return languageName;
 		}
 		else if (languageCode === 'en') {
-			return makeLink(`/${article.originalSlug || article.slug}`, languageName);
+			return makeLink(`/${article.originalSlug}`, languageName);
 		}
 		else if (existingTranslation) {
 			return makeLink(`/${languageCode}/${existingTranslation.slug}`, languageName);

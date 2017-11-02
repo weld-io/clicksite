@@ -41,6 +41,7 @@ module.exports = {
 			if (err || article === null) {
 				return next(err);
 			}
+			article.originalSlug = article.slug;
 			res.render('articles/show', {
 				title: 'Articles',
 				article: article,

@@ -39,4 +39,15 @@ var ClickSite = ClickSite || {};
 		});
 	};
 
+	ClickSite.trackClickArticle = function (slug, languageCode) {
+		gtag('event', 'select_content', { content_type: slug, content: slug, language: languageCode });
+	};
+
+	ClickSite.trackClickAd = function (event, slug, languageCode) {
+		event.preventDefault();
+		gtag('event', 'view_promotion', { content: slug, language: languageCode, event_callback: function () {
+			location.href = event.target.parentElement.getAttribute('href');
+		} });
+	};
+
 }(ClickSite));

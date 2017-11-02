@@ -30,7 +30,7 @@
 <% } %><% if (isAuthenticated) { %>
 	<div class="actions"><button onclick="ClickSite.addComment('<%= article._id %>', '<%= password %>')">Comment</button></div>
 <% } %>
-	<a href="<%= article.url %>" target="_blank"><button>Continue to article</button></a>
+	<a href="<%= article.url %>" onclick="ClickSite.trackClickArticle('<%= article.originalSlug %>', '<%= languageCode %>')" target="_blank"><button>Continue to article</button></a>
 
 	<div class="translations">
 		Read in:
@@ -52,7 +52,7 @@
 <section class="ad-frame">
 	<h2>Weld – the Visual CMS</h2>
 	<p>Create visual, animated, interactive content on your existing web/e-commerce platform</p>
-	<a href="https://www.weld.io?utm_source=articles.weld.io&utm_content=<%= article.slug %>"><button>Learn more</button></a>
+	<a href="https://www.weld.io?utm_source=articles.weld.io&utm_content=<%= article.slug %>" onclick="ClickSite.trackClickAd(event, '<%= article.originalSlug %>', '<%= languageCode %>')" ><button>Learn more</button></a>
 </section>
 <section class="ad-frame background">
 	<video autoplay="true" loop="true">
