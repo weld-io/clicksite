@@ -56,23 +56,34 @@ module.exports.toSlug = function (str, removeInternationalChars) {
 	// Abort if not a proper string value
 	if (!str || typeof(str) !== 'string')
 		return str;
-	// For both
+	// For both: change space/underscore
 	var newStr = str.trim()
 		.toLowerCase()
 		.replace(/ /g, '-') // space to dash
 		.replace(/_/g, '-') // underscore to dash
 	// Remove ÅÄÖ etc?
 	if (removeInternationalChars) {
-		newStr = newStr.replace(/[^\w-]+/g,''); // remove all other characters incl. ÅÄÖ
+		newStr = newStr.replace(/[^\w-]+/g, ''); // remove all other characters incl. ÅÄÖ
 	}
 	else {
-		newStr = newStr.replace(/[\t.,?;:‘’“”"'`!@#$€%^&§°*<>()\[\]{}_\+=\/\|\\]/g,''); // remove invalid characters but keep ÅÄÖ etc
+		newStr = newStr.replace(/[\t.,?;:‘’“”"'`!@#$€%^&§°*<>™()\[\]{}_\+=\/\|\\]/g, ''); // remove invalid characters but keep ÅÄÖ etc
 	}
-	// For both
-	newStr = newStr.replace(/---/g,'-') // fix for the ' - ' case
-		.replace(/--/g,'-') // fix for the '- ' case
-		.replace(/--/g,'-'); // fix for the '- ' case
+	// For both: remove multiple dashes
+	newStr = newStr.replace(/---/g, '-') // fix for the ' - ' case
+		.replace(/--/g, '-') // fix for the '- ' case
+		.replace(/--/g, '-'); // fix for the '- ' case
 	return newStr;
+};
+
+// "The 21 Best Articles to Read - Referral SaaSquatch" -> "The 21 Best Articles to Read"
+module.exports.splitTitle = function (str) {
+	// Abort if not a proper string value
+	if (!str || typeof(str) !== 'string')
+		return str;
+	// First normalize
+	const newStr = str.replace(/[-–—]/g, '|');
+	const newArray = newStr.split('|');
+	return newArray[0].trim();
 };
 
 // [{ reference: foo, ... }, { reference: bar, ... }] -> { foo: ..., bar: ... }

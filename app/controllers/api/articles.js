@@ -21,7 +21,7 @@ const Article = require('mongoose').model('Article');
 
 const parseHtml = function (htmlString) {
 	const $ = cheerio.load(htmlString);
-	const title = entities.decode($('head meta[property="og:title"]').attr('content') || $('head title').text());
+	const title = helpers.splitTitle(entities.decode($('head meta[property="og:title"]').attr('content') || $('head title').text()));
 	const description = entities.decode($('head meta[property="og:description"]').attr('content') || $('head meta[property="description"]').attr('content'));
 	const imageUrl = $('head meta[property="og:image"]').attr('content') || $('head meta[property="twitter:image"]').attr('content');
 	const siteName = $('head meta[property="og:site_name"]').attr('content') || $('head meta[property="application-name"]').attr('content');
