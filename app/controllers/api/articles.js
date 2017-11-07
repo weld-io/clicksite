@@ -53,20 +53,26 @@ const keywordsFromText = function ({title, description}) {
 		oneKeywordIfWordsMatch('acquisition', ['acquisition', 'traffic']),
 		oneKeywordIfWordsMatch('sales', ['sales', 'outbound']),
 		oneKeywordIfWordsMatch('analytics', ['analytic', 'metric']),
-		oneKeywordIfWordsMatch('branding', ['brand']),
 		oneKeywordIfWordsMatch('adtech', ['adtech', 'dsp', 'ssp']),
 		oneKeywordIfWordsMatch('socialmedia', ['social media', 'facebook', 'twitter', 'youtube', 'instagram', 'snapchat']),
-		oneKeywordIfWordsMatch('webdesign', ['web design']),
 
 		allTheseKeywords(['google', 'facebook', 'twitter', 'youtube', 'instagram']),
 		allTheseKeywords(['growth', 'saas', 'ranking', 'viral', 'email', 'metrics', 'engagement', 'retention']),
 	]).flatten().compact().value();
-	// Meta keywords
+	const keywordsDesign = _([
+		oneKeywordIfWordsMatch('design', ['design']),
+		oneKeywordIfWordsMatch('graphicdesign', ['graphic design', 'logo']),
+		oneKeywordIfWordsMatch('webdesign', ['web design']),
+		oneKeywordIfWordsMatch('branding', ['brand']),
+		oneKeywordIfWordsMatch('typography', ['typography', 'font', 'typeface']),
+	]).flatten().compact().value();
+	// Meta/topic keywords
 	const metaKeywords = [
 		includeIfNotEmpty('marketing', keywordsMarketing),
+		includeIfNotEmpty('design', keywordsDesign),
 	];
 	// Combine all
-	const allKeywords = _([metaKeywords, keywordsMarketing]).flatten().uniq().compact().value();
+	const allKeywords = _([metaKeywords, keywordsMarketing, keywordsDesign]).flatten().uniq().compact().value();
 	return allKeywords;
 };
 
