@@ -115,6 +115,8 @@ const formatArticleJson = function (req, res, next) {
 		req.crudify.result.hashtags = hashtagsString;
 	}
 	req.crudify.result.commentOrTitle = req.crudify.result.comment || req.crudify.result.title;
+	// Remove translations from API
+	delete req.crudify.result.translations;
 	next();
 };
 
