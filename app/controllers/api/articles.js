@@ -63,6 +63,7 @@ const keywordsFromText = function ({title, description}) {
 		oneKeywordIfWordsMatch('design', ['design']),
 		oneKeywordIfWordsMatch('graphicdesign', ['graphic design', 'logo']),
 		oneKeywordIfWordsMatch('webdesign', ['web design']),
+		oneKeywordIfWordsMatch('ux', ['ux', 'user experience', 'customer experience', 'interact']),
 		oneKeywordIfWordsMatch('branding', ['brand']),
 		oneKeywordIfWordsMatch('typography', ['typography', 'font', 'typeface']),
 	]).flatten().compact().value();
