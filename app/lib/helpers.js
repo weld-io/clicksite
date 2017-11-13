@@ -23,7 +23,7 @@ module.exports = function (app, config) {
 
 		const existingTranslation = _.find(article.translations, { languageCode: languageCode });
 		if (languageCode === currentLanguageCode) {
-			return languageName;
+			return `<span class="currentLanguage">${languageName}</span>`;
 		}
 		else if (languageCode === 'en') {
 			return makeLink(`/${article.originalSlug}`, languageName);

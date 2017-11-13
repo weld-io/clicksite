@@ -156,6 +156,12 @@ img.thumbnail {
 	display: inline;
 }
 
+.translations .currentLanguage {
+	font-family: 'weld-regular';
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
 /* Admin actions */
 .actions button {
 	background-color: limegreen;
