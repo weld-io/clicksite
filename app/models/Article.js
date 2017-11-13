@@ -23,6 +23,7 @@ const Article = new Schema({
 	comment: { type: String },
 	dateCreated: { type: Date, default: Date.now },
 	keywords: [String],
+	languageCode: { type: String, default: 'en' },
 	translations: [TranslatedArticle],
 });
 

@@ -25,7 +25,7 @@ module.exports = function (app, config) {
 		if (languageCode === currentLanguageCode) {
 			return `<span class="currentLanguage">${languageName}</span>`;
 		}
-		else if (languageCode === 'en') {
+		else if (languageCode === article.languageCode) {
 			return makeLink(`/${article.originalSlug}`, languageName);
 		}
 		else if (existingTranslation) {
@@ -81,8 +81,10 @@ module.exports.splitTitle = function (str) {
 	if (!str || typeof(str) !== 'string')
 		return str;
 	// First normalize
-	const newStr = str.replace(/[-–—]/g, '|');
-	const newArray = newStr.split('|');
+	let newStr = str.replace(' - ', ' | ');
+	newStr = str.replace(' – ', ' | ');
+	newStr = str.replace(' — ', ' | ');
+	const newArray = newStr.split(' | ');
 	return newArray[0].trim();
 };
 

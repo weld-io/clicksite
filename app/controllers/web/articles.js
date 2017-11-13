@@ -47,7 +47,7 @@ module.exports = {
 				article: article,
 				isAuthenticated: auth.isAuthenticated(req),
 				password: auth.getPassword(req),
-				languageCode: req.params.languageCode || 'en',
+				languageCode: req.params.languageCode || article.languageCode || 'en',
 			});
 		});
 	},
@@ -58,26 +58,26 @@ module.exports = {
 				return next(err);
 			}
 			const translation = _.chain(article.translations).find(trn => trn.languageCode === req.params.languageCode).pickBy((val, key) => key !== '_id').value();
-			const translatedArticle = _.merge({ originalSlug: article.slug }, article, translation);
+			const translatedArticle = _.merge({ originalSlug: article.slug }, article, translation, { languageCode: article.languageCode });
 			res.header('Content-Language', req.params.languageCode);
 			res.render('articles/show', {
 				title: 'Articles',
 				article: translatedArticle,
 				isAuthenticated: auth.isAuthenticated(req),
 				password: auth.getPassword(req),
-				languageCode: req.params.languageCode || 'en',
+				languageCode: req.params.languageCode || article.languageCode || 'en',
 			});
 		});
 	},
 
 	translateAndRedirect: function (req, res, next) {
 
-		const translateAll = (collection, toLanguage, cbWhenAllDone) => {
+		const translateAll = (collection, fromLanguage, toLanguage, cbWhenAllDone) => {
 			let translations = {};
 			async.eachOf(collection,
 				// For each
 				function (str, key, cb) {
-					translate(str, { from: 'en', to: toLanguage }).then(result => {
+					translate(str, { from: fromLanguage, to: toLanguage }).then(result => {
 						translations[key] = result.text;
 						cb();
 					}).catch(cb);
@@ -95,7 +95,8 @@ module.exports = {
 				return next(err);
 			}
 			const toTranslate = _(article).pick(['title', 'description', 'comment' /*, 'keywords'*/]).pickBy(val => val !== undefined).value();
-			translateAll(toTranslate, req.params.languageCode, (err, translations) => {
+			const fromLanguage = article.languageCode || 'en';
+			translateAll(toTranslate, fromLanguage, req.params.languageCode, (err, translations) => {
 				if (err) {
 					res.status(500).send(err);
 				}
