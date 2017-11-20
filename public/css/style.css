@@ -163,7 +163,8 @@ img.thumbnail {
 }
 
 /* Admin actions */
-.actions button {
+.actions button,
+.action-button {
 	background-color: limegreen;
 	color: white;
 	font-size: 0.8em;

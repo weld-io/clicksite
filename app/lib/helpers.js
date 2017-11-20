@@ -36,6 +36,12 @@ module.exports = function (app, config) {
 		}
 	};
 
+	app.locals.editButton = function (articleId, fieldName, defaultValue, isAuthenticated, password) {
+		defaultValue = typeof(defaultValue) === 'object' ? `'[${defaultValue}]'` : `'${defaultValue}'`;
+		console.log('defaultValue', defaultValue, typeof(defaultValue));
+		return isAuthenticated ? `<button class="action-button" onclick="ClickSite.editDataField('articles', '${articleId}', '${fieldName}', ${defaultValue}, '${password}')">Edit</button>` : '';
+	};
+
 };
 
 // Get types for all properties for the arguments object

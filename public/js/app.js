@@ -19,6 +19,19 @@ var ClickSite = ClickSite || {};
 		});
 	};
 
+	ClickSite.editDataField = function (collectionName, recordId, fieldName, defaultValue, password) {
+		var newData = {};
+		var newDefaultValue = defaultValue.replace(/[\[\]]/g, ''); // array, remove []
+		newData[fieldName] = prompt(fieldName + '?', newDefaultValue);
+		// If array, then split
+		if (defaultValue.indexOf('[') !== -1) {
+			newData[fieldName] = newData[fieldName].split(',');
+		}
+		apiRequest('put', collectionName, recordId, newData, password, function(result) {
+			location.reload();
+		});
+	};
+
 	ClickSite.addArticle = function (password) {
 		var url = prompt('Article URL');
 		var jsonObj = { url: url };
