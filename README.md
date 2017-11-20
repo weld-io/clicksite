@@ -11,6 +11,10 @@ Made by the team at **Weld** ([www.weld.io](https://www.weld.io?utm_source=githu
 
 ## How to Run
 
+(Optional) Set API password:
+
+	export API_PASSWORD=xxx
+
 Start with:
 
 	npm run dev # development mode
@@ -66,6 +70,6 @@ Delete all articles:
 
 	heroku create MYAPPNAME
 	heroku addons:create mongolab
-	heroku config:set GOOGLE_ANALYTICS_ID=UA-xxxx
-	heroku config:set API_PASSWORD=xxxx
+	heroku config:set GOOGLE_ANALYTICS_ID=UA-xxx
+	heroku config:set API_PASSWORD=xxx
 	git push heroku master
