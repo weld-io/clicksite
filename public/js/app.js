@@ -23,13 +23,15 @@ var ClickSite = ClickSite || {};
 		var newData = {};
 		var newDefaultValue = defaultValue.replace(/[\[\]]/g, ''); // array, remove []
 		newData[fieldName] = prompt(fieldName + '?', newDefaultValue);
-		// If array, then split
-		if (defaultValue.indexOf('[') !== -1) {
-			newData[fieldName] = newData[fieldName].split(',');
+		if (newData[fieldName] !== null) {
+			// If array, then split
+			if (defaultValue.indexOf('[') !== -1) {
+				newData[fieldName] = newData[fieldName].split(',');
+			}
+			apiRequest('put', collectionName, recordId, newData, password, function(result) {
+				location.reload();
+			});			
 		}
-		apiRequest('put', collectionName, recordId, newData, password, function(result) {
-			location.reload();
-		});
 	};
 
 	ClickSite.addArticle = function (password) {

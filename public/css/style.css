@@ -20,6 +20,10 @@ main {
 	height: 100%;
 }
 
+.small {
+	font-size: 0.7em;
+}
+
 /* Article/Ad frames */
 
 .ad-frame,

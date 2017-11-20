@@ -31,7 +31,7 @@
 			<td><%= formatDate(articles[i].dateCreated) %></td>
 			<td><%= articles[i].siteName %></td>
 			<td><img class="thumbnail" src="<%= articles[i].imageUrl %>"><%- editButton(articles[i]._id, 'imageUrl', articles[i].imageUrl, isAuthenticated, password) %></td>
-			<td><a href="/<%= articles[i].slug + (password ? `?password=${password}` : '') %>" title="<%= articles[i].description %>"><%= articles[i].title %></a></td>
+			<td><a href="/<%= articles[i].slug + (password ? `?password=${password}` : '') %>" title="<%= articles[i].description %>"><%= articles[i].title %></a><%- editButton(articles[i]._id, 'title', articles[i].title, isAuthenticated, password) %><p class="small">Description: <%- editButton(articles[i]._id, 'description', articles[i].description, isAuthenticated, password) %></p></td>
 			<td><%= articles[i].keywords.join(', ') %><%- editButton(articles[i]._id, 'keywords', articles[i].keywords, isAuthenticated, password) %></td>
 		</tr>
 <% } %>
