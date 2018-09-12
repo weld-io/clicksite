@@ -11,7 +11,8 @@ const TranslatedArticle = new Schema({
 	description: { type: String },
 	comment: { type: String },
 	keywords: [String],
-});
+},
+{ usePushEach: true });
 
 const Article = new Schema({
 	url: { type: String, required: true, unique: true },
@@ -25,7 +26,8 @@ const Article = new Schema({
 	keywords: [String],
 	languageCode: { type: String, default: 'en' },
 	translations: [TranslatedArticle],
-});
+},
+{ usePushEach: true });
 
 Article.plugin(findOrCreate);
 
