@@ -89,25 +89,30 @@ module.exports = {
 			);
 		}
 
-		Article.findById(req.params.id).exec(function (err, article) {
-			if (err || article === null) {
-				console.log('req.params', req.params);
-				return next(err);
+		Article.findById(req.params.id).exec(function (errFind, article) {
+			if (errFind || article === null) {
+				console.error('Find error:', {errFind, params:req.params});
+				return next(errFind);
 			}
 			const toTranslate = _(article).pick(['title', 'description', 'comment' /*, 'keywords'*/]).pickBy(val => val !== undefined).value();
 			const fromLanguage = article.languageCode || 'en';
-			translateAll(toTranslate, fromLanguage, req.params.languageCode, (err, translations) => {
-				if (err) {
-					res.status(500).send(err);
+			translateAll(toTranslate, fromLanguage, req.params.languageCode, (errTranslate, translations) => {
+				if (errTranslate) {
+					console.error('Translate error:', errTranslate);
+					res.status(500).send(errTranslate);
 				}
 				else {
 					const slug = helpers.toSlug(translations.title);
 					const translationObj = _.merge({ languageCode: req.params.languageCode, slug: slug }, translations);
 					article.translations.push(translationObj);
 					article.save(errSave => {
-						if (err)
+						if (errSave) {
+							console.error('Save error:', errSave);
 							res.status(500).send(errSave);
-						res.status(301).redirect(`/${req.params.languageCode}/${slug}`);
+						}
+						else {
+							res.status(301).redirect(`/${req.params.languageCode}/${slug}`);
+						}
 					});
 				}
 			})
