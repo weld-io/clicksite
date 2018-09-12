@@ -3,7 +3,8 @@ const config = require('./lib/config');
 const glob = require('glob');
 const mongoose = require('mongoose');
 
-mongoose.connect(config.db);
+mongoose.Promise = Promise;
+mongoose.connect(config.db, { useMongoClient: true });
 const db = mongoose.connection;
 db.on('error', function () {
 	throw new Error('unable to connect to database at ' + config.db);
